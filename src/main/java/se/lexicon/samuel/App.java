@@ -22,9 +22,13 @@ public class App
 //        System.out.println(snack.purchase(100));
 
         vendingMachine = new VendingMachineImpl();
-        vendingMachine.addMoney(1000);
-
-        vendingMachine.addMoney(3000);
+        vendingMachine.addMoney(100);
+        vendingMachine.buy(1);
+        vendingMachine.buy(2);
+        vendingMachine.addMoney(200);
+        vendingMachine.buy(2);
+        vendingMachine.returnChange();
+        vendingMachine.buy(2);
 
 
 

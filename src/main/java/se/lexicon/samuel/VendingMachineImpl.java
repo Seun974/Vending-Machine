@@ -29,11 +29,19 @@ public class VendingMachineImpl implements VendingMachine {
         denominations.add(500);
         denominations.add(1000);
 
+
         products.add(cocaCola);
         products.add(bakedFood);
         products.add(biscuits);
 
+        presentProducts(products);
+
         this.moneyPool = 0;
+    }
+    public void presentProducts(ArrayList<Product> products){
+       for(int i=0; i<products.size(); i++)
+        System.out.println("Product number is " + i + " - " + products.get(i).getName());
+
     }
 
     @Override
@@ -47,22 +55,30 @@ public class VendingMachineImpl implements VendingMachine {
     }
 
     @Override
-    public Product buy(int money, int prodNum) {
-        return null;
+    public Product buy(int prodNum) {
+        int productPrice = products.get(prodNum).getPrice();
+        if (moneyPool >= productPrice){
+            moneyPool -= productPrice;
+            System.out.println("Your money pool is " + moneyPool);
+            return products.get(prodNum);
+        }else{
+            System.out.println("You have insufficient funds");
+            return null;
+        }
+
     }
 
     @Override
     public int returnChange() {
-        return 0;
-    }
-
-    @Override
-    public void presentProduct() {
-
+        int change = moneyPool;
+        moneyPool = 0;
+        System.out.println("Your change to be returned is " + change);
+        return change;
     }
 
     @Override
     public int getBalance() {
         return moneyPool;
     }
+
 }
