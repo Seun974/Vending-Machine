@@ -1,28 +1,49 @@
 package se.lexicon.samuel;
 
-import com.sun.org.apache.xpath.internal.operations.String;
+import java.util.*;
 
 public class VendingMachineImpl implements VendingMachine {
-    private int[] denominations;
-    private Product[] products;
+    ArrayList<Integer> denominations = new ArrayList<Integer>();
+    ArrayList<Product> products = new ArrayList<>();
     private int moneyPool;
 
-    public Product[] getProducts() {
-        return products;
+    Drink cocaCola = new Drink("coke", 20, "33cl");
+    Food bakedFood = new Food("potatis", 50, 33);
+    Snack biscuits = new Snack("kanelbrulle", 100, 10);
+
+
+    @Override
+    public String[] getProducts() {
+        return new String[0];
     }
 
-    public void setProducts(Product[] products) {
-        this.products = products;
-    }
 
-    public VendingMachineImpl(int[] denominations, Product[] products, int moneyPool) {
-        this.denominations = new int[]{1, 2, 5, 10, 20, 50, 100, 200, 500, 1000};
-        this.moneyPool = moneyPool;
+    public VendingMachineImpl() {
+        denominations.add(1);
+        denominations.add(2);
+        denominations.add(5);
+        denominations.add(10);
+        denominations.add(20);
+        denominations.add(100);
+        denominations.add(200);
+        denominations.add(500);
+        denominations.add(1000);
+
+        products.add(cocaCola);
+        products.add(bakedFood);
+        products.add(biscuits);
+
+        this.moneyPool = 0;
     }
 
     @Override
-    public boolean addMoney(int money) {
-        return false;
+    public void addMoney(int money) {
+       if(denominations.contains(money)){
+            moneyPool += money;
+        } else{
+            System.out.println("This denomination is not available");
+        }
+        System.out.println("Your money-pool is " + moneyPool);
     }
 
     @Override
@@ -42,6 +63,6 @@ public class VendingMachineImpl implements VendingMachine {
 
     @Override
     public int getBalance() {
-        return 0;
+        return moneyPool;
     }
 }
